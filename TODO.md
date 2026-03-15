@@ -1,14 +1,11 @@
-# TODO: Update Portfolio Website per Approved Plan
+# Netlify Build Fix - Progress Tracker
 
-## Plan Breakdown into Steps
-1. **[DONE]** Update src/app/hero.tsx (title, objective, image path, CTA, email).
-2. **[DONE]** Update src/app/skills.tsx (SKILLS array to resume skills, section desc).
-3. **[DONE]** Update src/app/projects.tsx (5 resume projects, paths fixed).
-4. **[DONE]** Rewrite src/app/resume.tsx (education, certs, skills, PDF path).
-5. **[DONE]** Navbar, layout/page tweaks, MEMORY updated.
-6. **[DONE]** Test dev server.
-7. **[DONE]** Build/export.
-8. **[DONE]** Final verification.
+## Steps:
+- [ ] 1. Create this TODO.md
+- [ ] 2. Edit netlify.toml: Set publish="out", command="npm run build"
+- [ ] 3. Test local build: npm run build (verify out/ directory)
+- [ ] 4. Update TODO.md with test results
+- [ ] 5. Commit/push to trigger Netlify deploy
+- [ ] 6. Verify deploy success
 
-Updated: Major sections updated with resume content.
-
+Current status: Netlify.toml updated for static deploy.
