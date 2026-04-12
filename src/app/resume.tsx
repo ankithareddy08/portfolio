@@ -36,7 +36,7 @@ export function Resume() {
           <Typography className="mb-4 mt-3 w-9/12 font-normal !text-gray-500">
             B.Tech CSE student with strong foundation in programming, UI/UX design, and full project lifecycle. Experienced in metaverse, game dev, AI/ML, fintech, and web apps.
           </Typography>
-          <a href="/Ankitha-Reddy-Resume.pdf" download>
+          <a href="/Ankitha Resume----final.(U).pdf" download>
             <Button
               variant="text"
               color="gray"

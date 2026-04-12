@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -7,29 +8,12 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import {
-  RectangleStackIcon,
-  UserCircleIcon,
-  CommandLineIcon,
-  Squares2X2Icon,
   XMarkIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 
-const NAV_MENU = [
-  {
-    name: "Page",
-    icon: RectangleStackIcon,
-  },
-  {
-    name: "Account",
-    icon: UserCircleIcon,
-  },
-  {
-    name: "Docs",
-    icon: CommandLineIcon,
-    href: "#",
-  },
-];
+const NAV_MENU: any[] = [];
+const GITHUB_PROFILE = "https://github.com/ankithareddy08";
 
 interface NavItemProps {
   children: React.ReactNode;
@@ -57,6 +41,9 @@ export function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen((cur) => !cur);
+  const openGithubProfile = () => {
+    window.open(GITHUB_PROFILE, "_blank", "noopener,noreferrer");
+  };
 
   React.useEffect(() => {
     window.addEventListener(
@@ -69,7 +56,7 @@ export function Navbar() {
     <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
         <Typography color="blue-gray" className="text-lg font-bold">
-Ankitha Reddy
+          Ankitha Reddy
         </Typography>
         <ul className="ml-10 hidden items-center gap-8 lg:flex">
           {NAV_MENU.map(({ name, icon: Icon, href }) => (
@@ -79,11 +66,22 @@ Ankitha Reddy
             </NavItem>
           ))}
         </ul>
-        <div className="hidden items-center gap-2 lg:flex">
-          <Button variant="text">Sign In</Button>
-          <a href="#">
-            <Button color="gray">blocks</Button>
-          </a>
+        <div className="hidden lg:flex">
+          <Button
+            onClick={openGithubProfile}
+            size="sm"
+            color="gray"
+            className="flex items-center gap-2"
+          >
+            <Image
+              src="/image/github-sign.png"
+              alt="GitHub icon"
+              width={16}
+              height={16}
+              className="h-4 w-4 object-contain"
+            />
+            GitHub
+          </Button>
         </div>
         <IconButton
           variant="text"
@@ -108,11 +106,22 @@ Ankitha Reddy
               </NavItem>
             ))}
           </ul>
-          <div className="mt-6 mb-4 flex items-center gap-2">
-            <Button variant="text">Sign In</Button>
-            <a href="#">
-              <Button color="gray">blocks</Button>
-            </a>
+          <div className="mt-6 mb-4">
+            <Button
+              onClick={openGithubProfile}
+              size="sm"
+              color="gray"
+              className="flex w-fit items-center gap-2"
+            >
+              <Image
+                src="/image/github-sign.png"
+                alt="GitHub icon"
+                width={16}
+                height={16}
+                className="h-4 w-4 object-contain"
+              />
+              GitHub
+            </Button>
           </div>
         </div>
       </Collapse>
