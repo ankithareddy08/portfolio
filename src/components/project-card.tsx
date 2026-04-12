@@ -108,11 +108,11 @@ export function ProjectCard({
         </CardBody>
       </Card>
 
-      <Dialog 
-        open={open} 
-        handler={handleOpen} 
-        size="lg" 
-        className="overflow-hidden"
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        size="lg"
+        className="overflow-hidden w-11/12 md:w-full"
         animate={{
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },
@@ -123,7 +123,7 @@ export function ProjectCard({
             {title}
           </Typography>
         </DialogHeader>
-        <DialogBody divider className="overflow-y-auto max-h-[70vh] p-0">
+        <DialogBody divider className="overflow-y-auto max-h-[60vh] md:max-h-[65vh] lg:max-h-[70vh] p-0">
           <div className="w-full relative group bg-black/5 animate-in fade-in duration-700">
             <Image
               src={images[currentImgIndex]}
