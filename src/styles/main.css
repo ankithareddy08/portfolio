@@ -149,6 +149,11 @@ h1, h2, h3, p { margin: 0; font-weight: inherit; }
 .menu a:hover .menu__label { color: var(--lime); }
 .menu a:hover .menu__sub { opacity: 1; transform: none; }
 .menu__foot { display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 7vh; color: #8d8a82; }
+.menu__foot a { white-space: nowrap; }
+.menu__foot a[href^='mailto'] { text-transform: none; letter-spacing: .02em; }
+@media (max-width: 600px) {
+  .menu__foot { display: grid; grid-template-columns: 1fr; justify-items: start; gap: 12px; }
+}
 .menu__foot a:hover { color: var(--lime); }
 
 .rail {
