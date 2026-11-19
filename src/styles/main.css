@@ -142,11 +142,11 @@ h1, h2, h3, p { margin: 0; font-weight: inherit; }
 }
 .menu-open .menu { clip-path: circle(150% at calc(100% - var(--gx) - 24px) 44px); visibility: visible; }
 .menu ul { display: grid; gap: 4px; }
-.menu a { display: grid; grid-template-columns: 56px auto 1fr; align-items: baseline; gap: 18px; }
+.menu ul a { display: grid; grid-template-columns: 56px auto 1fr; align-items: baseline; gap: 18px; }
 .menu__num { color: #8d8a82; }
 .menu__label { font-family: var(--f-display); font-stretch: 64%; font-weight: 800; text-transform: uppercase; font-size: clamp(54px, 10vw, 150px); line-height: .9; transition: color .3s; }
 .menu__sub { font-size: clamp(18px, 2vw, 30px); color: #8d8a82; opacity: 0; transform: translateX(-10px); transition: .4s var(--ease); }
-.menu a:hover .menu__label { color: var(--lime); }
+.menu ul a:hover .menu__label { color: var(--lime); }
 .menu a:hover .menu__sub { opacity: 1; transform: none; }
 .menu__foot { display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 7vh; color: #8d8a82; }
 .menu__foot a { white-space: nowrap; }
