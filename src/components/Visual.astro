@@ -1,0 +1,146 @@
+---
+// Hand-built interface sketches for each case study. They stand in for screenshots
+// (most of this work is private client code) and animate when they scroll into view.
+interface Props {
+  kind: 'reqsy' | 'orian' | 'catering' | 'stevie' | 'tracker' | 'restaurant';
+}
+const { kind } = Astro.props;
+---
+
+<div class={`vis vis--${kind}`} data-vis={kind}>
+  {kind === 'reqsy' && (
+    <div class="win">
+      <div class="win__bar"><i></i><i></i><i></i><span class="mono">reqsy / idea #0142</span></div>
+      <div class="rq">
+        <ol class="rq__steps mono">
+          <li class="done">01 Interview</li>
+          <li class="done">02 Search</li>
+          <li class="on">03 Score</li>
+        </ol>
+        <div class="rq__main">
+          <div class="rq__score">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" class="rq__track" />
+              <circle cx="60" cy="60" r="52" class="rq__arc" pathLength="100" />
+            </svg>
+            <div class="rq__num"><b data-count="7.4">0.0</b><span class="mono">/ 10</span></div>
+            <span class="rq__verdict mono">viable · with caveats</span>
+          </div>
+          <ul class="rq__rubric">
+            <li><span>Market size</span><i style="--w:.82"></i><em class="mono">8.2</em></li>
+            <li><span>Competition</span><i style="--w:.56"></i><em class="mono">5.6</em></li>
+            <li><span>Willingness to pay</span><i style="--w:.74"></i><em class="mono">7.4</em></li>
+            <li><span>Founder fit</span><i style="--w:.9"></i><em class="mono">9.0</em></li>
+          </ul>
+        </div>
+        <div class="rq__foot">
+          <span class="rq__src mono">↗ crunchbase.com</span>
+          <span class="rq__src mono">↗ reddit.com/r/startups</span>
+          <span class="rq__src mono">↗ g2.com</span>
+          <span class="rq__live mono"><i></i>Gemini Live <b class="wave"><s></s><s></s><s></s><s></s><s></s></b></span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {kind === 'orian' && (
+    <div class="win win--dark">
+      <div class="win__bar"><i></i><i></i><i></i><span class="mono">orian builder — media studio</span></div>
+      <div class="or">
+        <div class="or__tabs mono"><span class="on">Image</span><span>Music</span><span>3D</span><span>Publish</span></div>
+        <div class="or__stage">
+          <img src="/media/orian-1200.webp" alt="Abstract chrome torus generated in Orian Builder" loading="lazy" />
+          <span class="or__prompt mono">“liquid chrome ring, violet rim light” <b>▍</b></span>
+        </div>
+        <div class="or__meters mono">
+          <span>model <b>z-image-turbo · gguf q4</b></span>
+          <span>tier <b>4 GB VRAM</b></span>
+          <span class="or__bar"><i></i></span>
+          <span>step <b data-count="28" data-int>0</b>/28</span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {kind === 'catering' && (
+    <div class="win win--light">
+      <div class="win__bar"><i></i><i></i><i></i><span class="mono">catercore / contracts</span></div>
+      <div class="ct">
+        <div class="ct__roles mono"><span class="on">Admin</span><span>Staff</span><span>Customer</span><span>Support</span></div>
+        <div class="ct__kpis">
+          <div><span class="mono">Active contracts</span><b>128</b></div>
+          <div><span class="mono">Events this week</span><b>36</b></div>
+          <div><span class="mono">Outstanding</span><b>₹4.2L</b></div>
+        </div>
+        <table class="ct__table">
+          <thead class="mono"><tr><th>Client ↓</th><th>Event</th><th>Guests</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Northwind Corp</td><td>Annual gala</td><td>420</td><td><em class="ok">Signed</em></td></tr>
+            <tr><td>Harbor Clinic</td><td>Staff lunch</td><td>80</td><td><em class="wait">Awaiting e-sign</em></td></tr>
+            <tr><td>Lumen Studios</td><td>Launch party</td><td>210</td><td><em class="ok">Paid</em></td></tr>
+            <tr><td>Greenfield School</td><td>Sports day</td><td>650</td><td><em class="draft">Draft v2</em></td></tr>
+            <tr><td>Atlas Logistics</td><td>Offsite</td><td>95</td><td><em class="wait">Invoice sent</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+
+  {kind === 'stevie' && (
+    <div class="win">
+      <div class="win__bar"><i></i><i></i><i></i><span class="mono">stevie intel / search past winners</span></div>
+      <div class="sv">
+        <div class="sv__q"><span class="sv__icon">⌕</span><span class="sv__type" data-type="Who won Gold for AI innovation in 2024?"></span><b class="caret">▍</b></div>
+        <p class="sv__meta mono"><b data-count="82654" data-int>0</b> records · grounded answer · 3 sources</p>
+        <div class="sv__answer">
+          <p>Three organisations took <em>Gold</em> in AI-related categories that year. Here’s each one, with the category and the nomination title.</p>
+        </div>
+        <ul class="sv__cards">
+          <li><span class="sv__medal g"></span><div><b>Gold · Technology</b><span class="mono">Achievement in AI Innovation</span></div></li>
+          <li><span class="sv__medal s"></span><div><b>Silver · Product</b><span class="mono">New Product — AI Assistant</span></div></li>
+          <li><span class="sv__medal b"></span><div><b>Bronze · Startup</b><span class="mono">Most Innovative Tech Startup</span></div></li>
+        </ul>
+      </div>
+    </div>
+  )}
+
+  {kind === 'tracker' && (
+    <div class="win">
+      <div class="win__bar"><i></i><i></i><i></i><span class="mono">link tracker / clicks by source</span></div>
+      <div class="tk">
+        <div class="tk__link mono"><span>trk.link/</span><b>one</b><em>copied ✓</em></div>
+        <ul class="tk__rows">
+          <li><span>WhatsApp</span><i style="--w:.86"></i><b class="mono">412</b><em class="mono hi">high</em></li>
+          <li><span>Instagram</span><i style="--w:.64"></i><b class="mono">306</b><em class="mono hi">high</em></li>
+          <li><span>Google</span><i style="--w:.41"></i><b class="mono">198</b><em class="mono hi">high</em></li>
+          <li><span>Newsletter</span><i style="--w:.27"></i><b class="mono">131</b><em class="mono ex">exact</em></li>
+          <li><span>WhatsApp Desktop</span><i style="--w:.14"></i><b class="mono">64</b><em class="mono lo">low</em></li>
+          <li><span>Unknown</span><i style="--w:.08"></i><b class="mono">37</b><em class="mono no">none</em></li>
+        </ul>
+        <p class="tk__note mono">302 → destination · +0 ms</p>
+      </div>
+    </div>
+  )}
+
+  {kind === 'restaurant' && (
+    <div class="phone">
+      <div class="phone__notch"></div>
+      <div class="rs">
+        <div class="rs__head">
+          <span class="mono">Table 5</span>
+          <b>London Café</b>
+          <span class="rs__bridge" aria-hidden="true">
+            <svg viewBox="0 0 120 40"><path d="M4 38h112M18 38V10h10v28M92 38V10h10v28M18 10l5-6 5 6M92 10l5-6 5 6M28 20h64M28 26c20 6 44 6 64 0" /></svg>
+          </span>
+        </div>
+        <div class="rs__chips mono"><span class="on">Burgers</span><span>Shakes</span><span>Meals</span></div>
+        <ul class="rs__menu">
+          <li><div><b>Tower Bridge Burger</b><span>Regular ₹189 · Meal ₹269</span></div><button aria-hidden="true" tabindex="-1">+</button></li>
+          <li><div><b>Peri Peri Fries</b><span>₹129</span></div><button aria-hidden="true" tabindex="-1">+</button></li>
+          <li><div><b>Oreo Shake</b><span>₹149 · <i>sold out till 6pm</i></span></div><button aria-hidden="true" tabindex="-1" disabled>–</button></li>
+        </ul>
+        <div class="rs__cart"><span class="mono">2 items</span><b>Pay ₹458 via UPI →</b></div>
+      </div>
+    </div>
+  )}
+</div>

@@ -1,0 +1,23 @@
+---
+import { existsSync } from 'node:fs';
+import { profile } from '../data/portfolio';
+
+const photo = '/media/portrait.webp';
+const hasPhoto = existsSync(`public${photo}`);
+---
+
+<figure class="portrait">
+  <div class:list={['portrait-art', { 'has-photo': hasPhoto }]} data-portrait>
+    {hasPhoto ? (
+      <img src={photo} alt={`Portrait of ${profile.name}`} width="720" height="1280" fetchpriority="high" decoding="async" />
+    ) : (
+      <div class="portrait-plate" aria-hidden="true">
+        <span class="portrait-orbit"></span>
+        <span class="portrait-initials">Ar<span>.</span></span>
+        <span class="portrait-corner portrait-corner-top"></span>
+        <span class="portrait-corner portrait-corner-low"></span>
+      </div>
+    )}
+  </div>
+  <figcaption><span class="location-pin" aria-hidden="true"></span> {profile.location}, India</figcaption>
+</figure>

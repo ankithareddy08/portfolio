@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#3a3935"/>
+      <stop offset="0.55" stop-color="#1a1a18"/>
+      <stop offset="1" stop-color="#0c0c0b"/>
+    </radialGradient>
+    <radialGradient id="light" cx="42%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.6" stop-color="#9a978f"/>
+      <stop offset="1" stop-color="#2a2926"/>
+    </radialGradient>
+    <pattern id="dots" width="11" height="11" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="5.5" cy="5.5" r="3.4" fill="#000"/>
+    </pattern>
+    <pattern id="dots-fine" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="3.5" cy="3.5" r="1.3" fill="#000"/>
+    </pattern>
+    <clipPath id="bust">
+      <!-- head, neck, shoulders -->
+      <ellipse cx="400" cy="340" rx="108" ry="134"/>
+      <path d="M350 440h100l10 92c118 20 208 66 240 140 16 38 22 98 22 328H78c0-230 6-290 22-328 32-74 122-120 240-140z"/>
+    </clipPath>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <g clip-path="url(#bust)">
+    <rect width="800" height="1000" fill="url(#light)"/>
+    <rect width="800" height="1000" fill="url(#dots)" opacity="0.55"/>
+    <rect width="800" height="1000" fill="url(#dots-fine)" opacity="0.35"/>
+  </g>
+  <g font-family="ui-monospace, Menlo, monospace" font-size="15" letter-spacing="3" fill="#8a877f">
+    <text x="36" y="56">PORTRAIT / B&amp;W</text>
+    <text x="36" y="960">PHOTO COMING SOON</text>
+    <text x="764" y="960" text-anchor="end">A.R.A — 2026</text>
+  </g>
+</svg>

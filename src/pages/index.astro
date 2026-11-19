@@ -1,0 +1,318 @@
+---
+import Base from '../layouts/Base.astro';
+import Visual from '../components/Visual.astro';
+import {
+  profile, heroWords, stats, timeline, projects, moreWork,
+  skillGroups, marquee, certifications,
+} from '../data/portfolio';
+
+const years = timeline.map((t) => t.year);
+
+const s = (v: string) => `<span class="s">"${v}"</span>`;
+const codeHtml = [
+  `<span class="k">ankitha</span>.<span class="f">identify</span>({`,
+  `  role:   ${s('AI Product Engineer')},`,
+  `  based:  ${s('Hyderabad, IN')},`,
+  `  since:  <span class="n">2022</span>,`,
+  `  focus:  [${s('LLM products')}, ${s('full-stack')}, ${s('UI/UX')}],`,
+  `  models: [${s('GPT')}, ${s('Claude')}, ${s('Gemini')}, ${s('Qwen')}],`,
+  `  status: ${s('open_to_work')},`,
+  `});`,
+].join('\n');
+---
+
+<Base>
+  <!-- 01 — INTRO -->
+  <section class="hero" id="top" data-theme="dark" data-rail="01" data-label="Intro">
+    <div class="hero__portrait" data-cursor="Hi ✳">
+      <img src={profile.portrait} alt={`Portrait of ${profile.full}`} width="800" height="1000" />
+    </div>
+
+    <div class="hero__copy">
+      <p class="label mono hero__label"><span>(01)</span> Portfolio — 2026</p>
+      <h1 class="hero__name" aria-label={profile.full}>
+        <span class="line"><span class="word">{profile.first}</span></span>
+        <span class="line"><span class="word">{profile.last}</span><span class="hero__family serif">{profile.family}</span></span>
+      </h1>
+      <p class="hero__ticker">
+        <span class="hero__role">{profile.role} /</span>
+        <span class="slot serif" aria-live="off">
+          {heroWords.map((w, i) => <span class={i === 0 ? 'on' : ''}>{w}</span>)}
+        </span>
+      </p>
+    </div>
+
+    <div class="hero__side">
+      <p class="hero__lede">
+        I design it in Figma, build the front and the back, wire up the models
+        and ship it. <em class="serif">Then I make it faster.</em>
+      </p>
+      <div class="hero__ctas">
+        <a class="btn btn--accent" href="#contact" data-magnetic>Let’s talk</a>
+        <a class="btn btn--ghost" href="#work">See the work ↓</a>
+      </div>
+    </div>
+
+    <div class="hero__foot">
+      <div class="clock">
+        <span class="clock__dot" aria-hidden="true">✳</span>
+        <div class="mono">
+          <b>{profile.city} <span class="clock__time" data-tz={profile.timezone}>--:--</span></b>
+          <span>IST · GMT+5:30 · open to remote</span>
+        </div>
+      </div>
+      <span class="scroll-cue mono">Scroll <i></i></span>
+    </div>
+  </section>
+
+  <!-- 02 — ABOUT -->
+  <section class="about" id="about" data-theme="light" data-rail="02" data-label="About">
+    <header class="sec-head mono">
+      <span>(02)</span><span>About me</span><span class="sec-head__end">{profile.city}, working anywhere</span>
+    </header>
+
+    <div class="about__grid">
+      <p class="reveal-words about__big">
+        Most of what I build starts as a prompt and ends as something a person can click.
+        <b>I design the screens, write the frontend and the backend, route each task to the right model</b>
+        and stay until it’s deployed. Six months inside a startup taught me how short that loop can be.
+      </p>
+
+      <div class="stamp" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+          <text><textPath href="#circ">AI PRODUCT ENGINEER ✳ CLASS OF 2026 ✳ SHIPS FAST ✳ </textPath></text>
+        </svg>
+        <span class="stamp__core serif">a.</span>
+      </div>
+    </div>
+
+    <ul class="stats">
+      {stats.map((s) => (
+        <li>
+          <b class="stats__num"><span data-count={s.value} data-int>0</span><small>{s.unit}</small></b>
+          <span class="stats__label">{s.label}</span>
+        </li>
+      ))}
+    </ul>
+
+    <div class="about__cards">
+      <article class="dict">
+        <p class="dict__word"><span class="display">Ankitha</span><sup>✳</sup></p>
+        <p class="dict__meta"><span class="serif">\ ˈʌŋ·kɪ·θɑː \</span> <span class="tag mono">noun</span></p>
+        <p class="dict__def serif"><b>1.</b> An engineer who designs the interface, wires up the model and <em>ships the whole thing</em> before the deadline.</p>
+        <p class="dict__syn mono">syn. builder · designer · shipper</p>
+        <p class="dict__foot mono">This definition has one author.</p>
+      </article>
+
+      <article class="code" data-type-code>
+        <header class="mono"><span>profile / identify()</span><span class="code__ok"><i></i>identified</span></header>
+        <pre><code set:html={codeHtml}></code></pre>
+      </article>
+    </div>
+  </section>
+
+  <!-- 03 — PATH (timeline with dates) -->
+  <section class="path" id="path" data-theme="dark" data-rail="03" data-label="Path">
+    <header class="sec-head mono">
+      <span>(03)</span><span>Path</span><span class="sec-head__end">2019 → now</span>
+    </header>
+    <h2 class="path__intro reveal-lines">
+      From <b>100%</b> in Class X to shipping <b>AI products</b> with founders, <em class="serif">in that order.</em>
+    </h2>
+
+    <div class="path__body">
+      <div class="path__year" aria-hidden="true">
+        <div class="year">
+          {years[0].split('').map((d) => (
+            <span class="year__col"><span class="year__digits">{[0,1,2,3,4,5,6,7,8,9].map((n) => <span>{n}</span>)}</span><span class="year__ghost">{d}</span></span>
+          ))}
+        </div>
+        <p class="path__count mono">Chapter <b class="path__idx">1</b> / {years.length}</p>
+        <span class="path__progress"><i></i></span>
+      </div>
+
+      <ol class="path__list">
+        {timeline.map((g, gi) => (
+          <li class="path__group" data-year={g.year} data-index={gi}>
+            <span class="path__mobile-year display">{g.year}</span>
+            {g.items.map((it) => (
+              <article class="entry">
+                <p class="entry__when mono">
+                  <i></i>{it.when}
+                  {it.now && <span class="pill">Now</span>}
+                </p>
+                <h3 class="entry__title">{it.title}</h3>
+                <p class="entry__where">{it.where}</p>
+                <p class="entry__body">{it.body}</p>
+                <ul class="entry__tags mono">{it.tags.map((t) => <li>{t}</li>)}</ul>
+              </article>
+            ))}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 04 — WORK -->
+  <section class="work" id="work" data-theme="dark" data-rail="04" data-label="Work">
+    <header class="sec-head mono">
+      <span>(04)</span><span>Selected work</span><span class="sec-head__end">Internship, team & solo</span>
+    </header>
+    <h2 class="work__title">
+      <span class="display reveal-chars">Things I built</span>
+      <span class="serif accent reveal-chars">& shipped.</span>
+    </h2>
+
+    <ol class="work__index mono" aria-hidden="true">
+      {projects.map((p) => <li data-for={p.slug}>{p.num}</li>)}
+    </ol>
+
+    <div class="cases">
+      {projects.map((p) => (
+        <article class="case" id={`case-${p.slug}`} data-slug={p.slug} style={`--tint:${p.tint}`}>
+          <div class="case__inner">
+            <div class="case__text">
+              <p class="case__kicker mono"><b>{p.num}</b> / {p.kicker}</p>
+              <p class="case__role mono">{p.role} · {p.year}</p>
+              <h3 class="case__title serif">{p.title}</h3>
+              <p class="case__tagline">{p.tagline}</p>
+              <p class="case__body">{p.body}</p>
+              <ul class="case__points">
+                {p.points.map((pt) => <li>{pt}</li>)}
+              </ul>
+              <ul class="case__stack mono">{p.stack.map((s) => <li>{s}</li>)}</ul>
+              {p.link ? (
+                <a class="case__link" href={p.link.href} target="_blank" rel="noopener" data-cursor="Open ↗">
+                  <span class="mono">{p.link.label}</span><span class="case__arrow">→</span>
+                </a>
+              ) : (
+                <p class="case__private mono">Private client work · walkthrough on request</p>
+              )}
+            </div>
+            <div class="case__visual" data-cursor={p.title}>
+              <Visual kind={p.visual} />
+            </div>
+          </div>
+          <span class="case__big display" aria-hidden="true">{p.num}</span>
+        </article>
+      ))}
+    </div>
+
+    <div class="more">
+      <header class="more__head">
+        <h3 class="display">Also on the bench</h3>
+        <p class="mono">Side projects, hackathons, assessments</p>
+      </header>
+      <ul class="more__list">
+        {moreWork.map((m, i) => {
+          const Tag = m.href ? 'a' : 'div';
+          return (
+            <li>
+              <Tag class="row" {...(m.href ? { href: m.href, target: '_blank', rel: 'noopener', 'data-cursor': 'Visit ↗' } : {})}>
+                <span class="row__num mono">{String(i + 1).padStart(2, '0')}</span>
+                <span class="row__title">{m.title}</span>
+                <span class="row__line">{m.line}</span>
+                <span class="row__tags mono">{m.tags}</span>
+                <span class="row__year mono">{m.year}{m.href && <i> ↗</i>}</span>
+              </Tag>
+            </li>
+          );
+        })}
+      </ul>
+      <a class="more__gh mono" href={profile.github} target="_blank" rel="noopener">Everything else is on GitHub ↗</a>
+    </div>
+  </section>
+
+  <!-- 05 — MANIFESTO -->
+  <section class="motto" data-theme="dark" data-rail="05" data-label="Motto">
+    <svg class="motto__star" viewBox="0 0 200 200" aria-hidden="true">
+      {Array.from({ length: 12 }).map((_, i) => (
+        <rect x="92" y="0" width="16" height="100" rx="2" transform={`rotate(${i * 30} 100 100)`} />
+      ))}
+    </svg>
+    <div class="motto__inner">
+      <p class="label mono">(05) — What I believe</p>
+      <p class="motto__line display reveal-words">Calling a model is the easy part.</p>
+      <p class="motto__sub serif">Anyone can get an answer out of an API.</p>
+      <p class="motto__big serif reveal-words">Making it fast, cheap, honest and nice to use is the actual job.</p>
+    </div>
+  </section>
+
+  <!-- 06 — TOOLKIT -->
+  <section class="toolkit" id="toolkit" data-theme="light" data-rail="06" data-label="Toolkit">
+    <header class="sec-head mono">
+      <span>(06)</span><span>Toolkit</span><span class="sec-head__end">Daily drivers</span>
+    </header>
+    <h2 class="toolkit__title"><span class="display">What I</span> <span class="serif">reach for.</span></h2>
+
+    <div class="marquee" aria-hidden="true">
+      {marquee.map((row, r) => (
+        <div class={`marquee__row ${r % 2 ? 'rev' : ''}`}>
+          <div class="marquee__track">
+            {[0, 1].map(() => row.map((w) => <span>{w}<i>✳</i></span>))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="skills">
+      {skillGroups.map((g, i) => (
+        <div class="skills__group">
+          <p class="skills__head mono"><span>0{i + 1}</span>{g.name}</p>
+          <ul>{g.items.map((s) => <li>{s}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="certs">
+      <p class="label mono">Certifications & achievements</p>
+      <ul>
+        {certifications.map((c) => (
+          <li><span>{c.title}</span><span class="mono">{c.by}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 07 — CONTACT -->
+  <section class="contact" id="contact" data-theme="dark" data-rail="07" data-label="Contact">
+    <header class="sec-head mono">
+      <span>(07)</span><span>Contact</span><span class="sec-head__end"><i class="dot"></i>{profile.status}</span>
+    </header>
+
+    <div class="contact__grid">
+      <h2 class="contact__title">
+        <span class="display reveal-chars">Got something</span>
+        <span class="serif accent reveal-chars">worth building?</span>
+      </h2>
+      <a class="blob" href={`mailto:${profile.email}`} data-magnetic data-cursor="✉">
+        <span>Start a<br />conversation</span><i>→</i>
+      </a>
+    </div>
+
+    <ol class="steps">
+      <li><span class="mono">01</span><b>Tell me about the role or the idea</b><p>A few lines is plenty.</p></li>
+      <li><span class="mono">02</span><b>I reply quickly</b><p>Usually the same day, IST.</p></li>
+      <li><span class="mono">03</span><b>A short call</b><p>We see if it’s a fit.</p></li>
+    </ol>
+
+    <div class="contact__links">
+      <button class="copy mono" data-copy={profile.email} data-cursor="Copy">
+        <span class="copy__text">{profile.email}</span><span class="copy__hint">copy</span>
+      </button>
+      <a class="chip mono" href={profile.resume} target="_blank" rel="noopener">Resume (PDF) ↗</a>
+    </div>
+
+    <footer class="foot">
+      <div class="foot__cols mono">
+        <div><p>Elsewhere</p><a href={profile.github} target="_blank" rel="noopener">GitHub ↗</a><a href={profile.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div><p>Local time</p><span><span class="clock__time" data-tz={profile.timezone}>--:--</span> IST</span><span>{profile.city}, India</span></div>
+        <div><p>Built with</p><span>Astro, GSAP, Lenis</span><span>and a canvas or two</span></div>
+        <div><p>Back to</p><a href="#top">the top ↑</a></div>
+      </div>
+      <canvas class="foot__name" aria-label={profile.first} role="img"></canvas>
+      <p class="foot__legal mono"><span>© 2026 {profile.full}</span><span>Designed & built by me</span></p>
+    </footer>
+  </section>
+</Base>

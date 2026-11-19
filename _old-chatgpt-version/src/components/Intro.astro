@@ -1,0 +1,95 @@
+---
+import { profile } from '../data/portfolio';
+---
+
+<div class="intro-loader" data-intro-loader role="dialog" aria-modal="true" aria-label="Portfolio introduction">
+  <div class="intro-loader-top">
+    <span>{profile.name}</span>
+    <button type="button" data-intro-skip>Skip intro</button>
+  </div>
+  <div class="intro-loader-center" aria-hidden="true">
+    <span class="intro-emblem">Ar<span>.</span></span>
+    <span class="intro-orbit"></span>
+  </div>
+  <div class="intro-loader-bottom" aria-hidden="true">
+    <div class="intro-meter"><span data-intro-meter></span></div>
+    <p><span data-intro-percent>0</span><em>%</em></p>
+  </div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const loader = document.querySelector<HTMLElement>('[data-intro-loader]');
+  const page = document.querySelector<HTMLElement>('[data-page-content]');
+  const skip = loader?.querySelector<HTMLButtonElement>('[data-intro-skip]');
+  const counter = loader?.querySelector('[data-intro-percent]');
+  const meter = loader?.querySelector<HTMLElement>('[data-intro-meter]');
+
+  if (root.dataset.intro === 'loading' && loader && page && skip && counter && meter) {
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    let timer = 0;
+    let ready = false;
+    let stopped = false;
+    let displayed = -1;
+    page.inert = true;
+    skip.focus({ preventScroll: true });
+
+    const portrait = document.querySelector<HTMLImageElement>('[data-portrait] img');
+    const font = document.fonts?.load('800 1rem "Barlow Condensed"');
+    Promise.allSettled([font, portrait?.decode()]).then(() => { ready = true; });
+
+    function finish() {
+      if (stopped) return;
+      stopped = true;
+      cancelAnimationFrame(frame);
+      clearTimeout(timer);
+      root.removeAttribute('data-intro');
+      page!.inert = false;
+      document.removeEventListener('keydown', handleEscape);
+      preference.removeEventListener?.('change', handlePreference);
+      try { sessionStorage.setItem('portfolio-intro-seen', '1'); } catch {}
+    }
+
+    function dismiss() {
+      finish();
+      document.getElementById('main')?.focus({ preventScroll: true });
+    }
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') dismiss();
+    }
+
+    function handlePreference(event: MediaQueryListEvent) {
+      if (event.matches) finish();
+    }
+
+    function update(value: number) {
+      if (displayed === value) return;
+      displayed = value;
+      counter!.textContent = String(value);
+      meter!.style.transform = `scaleX(${value / 100})`;
+    }
+
+    const start = performance.now();
+    function tick(now: number) {
+      const elapsed = now - start;
+      if ((ready && elapsed >= 960) || elapsed >= 1450) {
+        update(100);
+        timer = window.setTimeout(() => {
+          root.dataset.intro = 'exit';
+          page!.inert = false;
+          timer = window.setTimeout(finish, 525);
+        }, 160);
+        return;
+      }
+      update(Math.min(96, Math.floor((elapsed / 960) * 100)));
+      frame = requestAnimationFrame(tick);
+    }
+
+    skip.addEventListener('click', dismiss);
+    document.addEventListener('keydown', handleEscape);
+    preference.addEventListener?.('change', handlePreference);
+    frame = requestAnimationFrame(tick);
+  }
+</script>

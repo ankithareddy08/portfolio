@@ -1,0 +1,146 @@
+---
+import '@fontsource/barlow-condensed/latin-700.css';
+import '@fontsource/barlow-condensed/latin-800.css';
+import '@fontsource-variable/figtree';
+import '@fontsource/dm-serif-display/latin-400-italic.css';
+import displayFontUrl from '@fontsource/barlow-condensed/files/barlow-condensed-latin-800-normal.woff2?url';
+import '../styles/global.css';
+import { profile } from '../data/portfolio';
+import Intro from '../components/Intro.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  intro?: boolean;
+}
+
+const { title, description = profile.intro, noindex = false, intro = false } = Astro.props;
+const pageTitle = title ? `${title} | ${profile.name}` : `${profile.name} — AI Product Engineer`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#111110" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/media/mark.png" type="image/png" />
+    <link rel="preload" href={displayFontUrl} as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <title>{pageTitle}</title>
+    <script is:inline define:vars={{ intro }}>
+      try {
+        const root = document.documentElement;
+        if (localStorage.getItem('portfolio-motion') === 'off') root.dataset.motion = 'off';
+        if (intro && !location.hash && root.dataset.motion !== 'off' &&
+            !matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('portfolio-intro-seen')) {
+          root.dataset.intro = 'loading';
+          setTimeout(() => {
+            if (!root.dataset.intro) return;
+            delete root.dataset.intro;
+            document.querySelector('[data-page-content]')?.removeAttribute('inert');
+          }, 3200);
+        }
+      } catch {}
+    </script>
+  </head>
+  <body>
+    {intro && <Intro />}
+    <div data-page-content>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" id="top">
+      <div class="frame header-inner">
+        <a class="wordmark" href="/" aria-label="Ankitha Reddy Atukula, home">
+          <span class="wordmark-mark" aria-hidden="true">a</span>
+          <span class="wordmark-name">Ankitha <em>Reddy</em></span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="/#work">Work</a>
+          <a href="/#experience">Experience</a>
+          <a href="/#education">Education</a>
+          <a href="/#about">About</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+        <a class="button button-small" href={profile.resume} download>Résumé <span class="download-mark" aria-hidden="true"></span></a>
+      </div>
+      <div class="page-progress" aria-hidden="true"><span></span></div>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer" id="contact">
+      <div class="frame">
+        <div class="contact-top" data-enter>
+          <div>
+            <p class="eyebrow"><span class="label-line"></span> Contact</p>
+            <h2>Let’s <em>talk.</em></h2>
+          </div>
+          <div class="contact-links">
+            <a class="contact-email" href={`mailto:${profile.email}`}>{profile.email}</a>
+            <div class="social-links">
+              <a href={profile.github}>GitHub</a>
+              <a href={profile.linkedin}>LinkedIn</a>
+              <a href={profile.resume} download>Download résumé</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <a class="wordmark footer-home" href="/" aria-label="Ankitha Reddy Atukula, home">
+            <span class="wordmark-mark" aria-hidden="true">a</span><span>{profile.name}</span>
+          </a>
+          <div class="footer-controls">
+            <button hidden type="button" class="motion-toggle" data-motion-toggle aria-pressed="true">Motion <span data-motion-status aria-hidden="true">on</span></button>
+            <a href="#top">Back to top</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    </div>
+    <script>
+      const preference = matchMedia('(prefers-reduced-motion: reduce)');
+      const root = document.documentElement;
+      const toggle = document.querySelector<HTMLButtonElement>('[data-motion-toggle]');
+      const label = toggle?.querySelector('[data-motion-status]');
+
+      function syncMotionControl() {
+        if (!toggle || !label) return;
+        const enabled = !preference.matches && root.dataset.motion !== 'off';
+        toggle.hidden = preference.matches;
+        toggle.setAttribute('aria-pressed', String(enabled));
+        label.textContent = enabled ? 'on' : 'off';
+      }
+
+      toggle?.addEventListener('click', () => {
+        root.dataset.motion = root.dataset.motion === 'off' ? 'on' : 'off';
+        try {
+          localStorage.setItem('portfolio-motion', root.dataset.motion);
+        } catch {}
+        syncMotionControl();
+      });
+
+      preference.addEventListener?.('change', syncMotionControl);
+      syncMotionControl();
+
+      if ('IntersectionObserver' in window) {
+        const reveals = new IntersectionObserver((entries, observer) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            observer.unobserve(entry.target);
+            if (!preference.matches && root.dataset.motion !== 'off') {
+              entry.target.classList.add('did-enter');
+            }
+          }
+        }, { threshold: 0.12 });
+        document.querySelectorAll('[data-enter]').forEach((item) => reveals.observe(item));
+      }
+    </script>
+  </body>
+</html>

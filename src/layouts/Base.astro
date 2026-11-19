@@ -1,0 +1,116 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/jetbrains-mono';
+import 'lenis/dist/lenis.css';
+import '../styles/main.css';
+import { profile } from '../data/portfolio';
+
+interface Props {
+  title?: string;
+  description?: string;
+  bare?: boolean;
+}
+
+const {
+  title = `${profile.full} — ${profile.role}`,
+  description = 'Ankitha Reddy Atukula designs and builds AI products end to end: Figma, React, Python, LLM orchestration and deployment.',
+  bare = false,
+} = Astro.props;
+
+const nav = [
+  { href: '#work', label: 'Work', sub: 'the things that shipped' },
+  { href: '#path', label: 'Path', sub: 'dates, places, people' },
+  { href: '#about', label: 'About', sub: 'who’s building' },
+  { href: '#toolkit', label: 'Toolkit', sub: 'what I reach for' },
+  { href: '#contact', label: 'Contact', sub: 'the door is open' },
+];
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0c0c0b" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    {!bare && (
+      <>
+        <div class="preloader" aria-hidden="true">
+          <canvas class="preloader__canvas"></canvas>
+          <div class="preloader__hud mono">
+            <span class="preloader__log">booting portfolio</span>
+            <span class="preloader__count">000</span>
+          </div>
+        </div>
+
+        <header class="top">
+          <a class="logo" href="#top" aria-label="Back to top">
+            <span class="logo__word">ankitha</span><span class="logo__star" aria-hidden="true">✳</span>
+          </a>
+          <p class="top__mid mono" data-scramble>{profile.role} — {profile.city}, {profile.country}</p>
+          <div class="top__right">
+            <span class="status mono"><i></i>{profile.status}</span>
+            <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+              <span></span><span></span>
+            </button>
+          </div>
+        </header>
+
+        <nav class="menu" id="menu" aria-label="Main">
+          <ul>
+            {nav.map((n, i) => (
+              <li>
+                <a href={n.href}>
+                  <span class="menu__num mono">0{i + 1}</span>
+                  <span class="menu__label">{n.label}</span>
+                  <span class="menu__sub serif">{n.sub}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="menu__foot mono">
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <a href={profile.github} target="_blank" rel="noopener">GitHub ↗</a>
+            <a href={profile.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href={profile.resume} target="_blank" rel="noopener">Resume (PDF) ↗</a>
+          </div>
+        </nav>
+
+        <aside class="rail mono" aria-hidden="true">
+          <span class="rail__num">01</span>
+          <span class="rail__line"><i></i></span>
+          <span class="rail__label">Intro</span>
+        </aside>
+
+        <div class="hud mono" aria-hidden="true">
+          <span class="hud__pct">000</span> / 100
+        </div>
+
+        <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+      </>
+    )}
+
+    <div class="grain" aria-hidden="true"></div>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>
