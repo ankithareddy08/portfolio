@@ -4,3 +4,5 @@ dist/
 .netlify/
 .env
 .env.*
+_old-chatgpt-version/
+.claude/
