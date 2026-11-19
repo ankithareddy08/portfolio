@@ -164,6 +164,8 @@ function startSlot() {
   if (words.length < 2) return;
   let i = 0;
   if (reduced) return;
+  // Take over from the CSS transform so GSAP's yPercent isn't added on top of it.
+  words.forEach((w, n) => gsap.set(w, { y: 0, yPercent: n === 0 ? 0 : 110 }));
   setInterval(() => {
     const cur = words[i];
     i = (i + 1) % words.length;
@@ -324,7 +326,8 @@ function setupScroll() {
 
   // hero parallax out
   gsap.to('.hero__portrait img', { yPercent: 12, scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.hero__copy', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  // on the children, not .hero__copy: a transform there would stop the name blending with the photo
+  gsap.to('.hero__copy > *', { y: -90, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
   // word-by-word reading reveal
   $$('.about .reveal-words').forEach((el) => {
